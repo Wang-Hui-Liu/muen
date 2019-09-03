@@ -22,7 +22,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 export default {
    data(){
        return {
@@ -32,8 +32,15 @@ export default {
    },
    methods:{
        gotoHome(){
-          axios.post("/api/login",{username:this.user,password:this.pwd}).then(res=>{
-              console.log(res)
+            console.log(this.$route.query)
+          axios.post("/api/login",{userName:this.user,password:this.pwd}).then(res=>{
+
+              if(res.data.code===1){
+                   window.localStorage.setItem('token',res.data.token);
+                   this.$router.push({path:this.$route.query.redirect})
+              }else{
+                  this.$router.push({path:"/register",query:{redirect:this.$route.query.redirect}})
+              }
           })
        }
    }
@@ -43,9 +50,10 @@ export default {
 <style scoped lang="scss">
 .login-box{
     width: 100%;
-    height: 100px;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    background: #eee;
 }
 .title{
     margin-top:124px;
@@ -62,17 +70,18 @@ export default {
 }
 .inner .block{
     width: 245px;
-
     border:1px solid rgba(42,130,228,1);
     margin-bottom: 17px;
     height: 36px;
     line-height: 36px;
     font-size: 12px;
-    border-radius: 5px;
+    border-radius: 2px;
     input{
         width: 100%;
         border:none;
         outline: none;
+        padding-left: 10px;
+        background: none;
         ::placeholder{
             font-size: 12px;
         }
@@ -93,5 +102,12 @@ export default {
 }
 .login{
     text-align: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,1);
+    span{
+        width: 100%;
+        height: 100%;
+    }
 }
 </style>
