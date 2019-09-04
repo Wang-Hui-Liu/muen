@@ -22,8 +22,7 @@
 </template>
 
 <script>
-import httpAxios from "@/utils/http.js";
-
+import {login} from "@/api/api.js"
 export default {
    data(){
        return {
@@ -33,19 +32,21 @@ export default {
    },
    methods:{
     //    点登录按钮
-       gotoHome(){
-          if(this.user==''||this.pwd==''){
-              this.$message.error("请将消息填写完整")
-          }else{
-              httpAxios.post("/api/login",{userName:this.user,password:this.pwd}).then(res=>{
+     async gotoHome(){
+            const res=await login({userName:this.user,password:this.pwd})
+            // console.log(res)
                 if(res.code===1){//判断成功
                     window.localStorage.setItem('token',res.token);// 本地存储
-                    this.$router.push({path:this.$route.query.redirect}) // 跳到要去的页面
+                    let redirect=this.$route.query.redirect;
+                    // console.log(redirect)
+                    if(redirect){
+                         this.$router.push({path:redirect}) // 跳到要去的页面
+                    }else{
+                        this.$router.push({path:"/home"})
+                    }
                 }else{//否则跳到注册页面
                     this.$router.push({path:"/register",query:{redirect:this.$route.query.redirect}})
                 }
-             })
-          }
        },
        gotoRegister(){ // 立即注册
            this.$router.push({path:"/register",query:{redirect:this.$route.query.redirect}})
@@ -60,7 +61,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: #eee;
+    background: rgba(243, 243, 247, 1);
     overflow: hidden;
 }
 .title{
@@ -81,7 +82,7 @@ export default {
 }
 .inner .block{
     width: 245px;
-    border:1px solid rgba(42,130,228,1);
+    border:1px solid #ccc;
     margin-bottom: 17px;
     height: 36px;
     line-height: 36px;

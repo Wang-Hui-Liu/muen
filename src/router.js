@@ -24,6 +24,16 @@ const router=new Router({
       component:()=>import ("./views/register/register.vue")
     },
     {
+      path:"/vote",
+      name:"vote",
+      component:()=>import ("./views/vote/vote.vue")
+    },
+    {
+      path:"/newvote",
+      name:"newvote",
+      component:()=>import ("./views/newvote/newvote.vue")
+    },
+    {
       path:"/",
       redirect:"/home"
     }
