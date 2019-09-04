@@ -11,7 +11,7 @@
              <input type="password" placeholder="请输入密码" v-model="pwd">
          </div>
          <div class="register">
-             <span>立即注册</span>
+             <span @click="gotoRegister">立即注册</span>
              <span>忘记密码</span>
          </div>
          <div class="login block">
@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import httpAxios from "@/utils/http.js";
+
 export default {
    data(){
        return {
@@ -31,17 +32,23 @@ export default {
        }
    },
    methods:{
+    //    点登录按钮
        gotoHome(){
-            console.log(this.$route.query)
-          axios.post("/api/login",{userName:this.user,password:this.pwd}).then(res=>{
-
-              if(res.data.code===1){
-                   window.localStorage.setItem('token',res.data.token);
-                   this.$router.push({path:this.$route.query.redirect})
-              }else{
-                  this.$router.push({path:"/register",query:{redirect:this.$route.query.redirect}})
-              }
-          })
+          if(this.user==''||this.pwd==''){
+              this.$message.error("请将消息填写完整")
+          }else{
+              httpAxios.post("/api/login",{userName:this.user,password:this.pwd}).then(res=>{
+                if(res.code===1){//判断成功
+                    window.localStorage.setItem('token',res.token);// 本地存储
+                    this.$router.push({path:this.$route.query.redirect}) // 跳到要去的页面
+                }else{//否则跳到注册页面
+                    this.$router.push({path:"/register",query:{redirect:this.$route.query.redirect}})
+                }
+             })
+          }
+       },
+       gotoRegister(){ // 立即注册
+           this.$router.push({path:"/register",query:{redirect:this.$route.query.redirect}})
        }
    }
 }
@@ -54,6 +61,7 @@ export default {
     display: flex;
     flex-direction: column;
     background: #eee;
+    overflow: hidden;
 }
 .title{
     margin-top:124px;
@@ -65,6 +73,9 @@ export default {
 }
 
 .inner{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     margin-top: 35px;
     padding-left: 65px;
 }
@@ -76,6 +87,7 @@ export default {
     line-height: 36px;
     font-size: 12px;
     border-radius: 2px;
+    overflow: hidden;
     input{
         width: 100%;
         border:none;
@@ -91,6 +103,7 @@ export default {
     margin-bottom: 5px;
 }
 .register{
+    overflow: hidden;
     width: 245px;
     margin-bottom: 17px;
     font-size: 10px;
@@ -101,6 +114,7 @@ export default {
     }
 }
 .login{
+    overflow: hidden;
     text-align: center;
     width: 100%;
     height: 100%;

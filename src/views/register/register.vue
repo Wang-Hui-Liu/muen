@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import httpAxios from "@/utils/http.js"
 export default {
    data(){
        return {
@@ -36,16 +36,19 @@ export default {
    },
    methods:{
        gotoLogin(){
-           console.log(this.$route.query)
-           axios.post("/api/register",{userName:this.user,password:this.pwd,realName:this.name}).then(res=>{
-               console.log(res)
-
-               if(res.data.code===1){
-                //    明天试一下
-                //    this.history.go(-1)
+        //    两次密码一致，跳回登录页面
+           if(this.pwd===this.repwd){
+              httpAxios.post("/api/register",{userName:this.user,password:this.pwd,realName:this.name}).then(res=>{
+                //   判断成功
+               if(res.code===1){
+                //    跳回登录页面
                    this.$router.push({path:"/login",query:{redirect:this.$route.query.redirect}})
                }
-           })
+             })
+           }else{//否则显示消息弹框
+               this.$message.error('两次密码输入不一致');
+           }
+
        }
    }
 }
@@ -68,11 +71,10 @@ export default {
     margin: 108px 96px 47px 124px;
 }
 .inner{
-    width: 245px;
-    margin-left: 64px;
-    margin-right: 66px;
+    padding-left: 64px;
+    padding-right: 66px;
     .block{
-        width: 100%;
+        width: 245px;
         height: 36px;
         line-height: 36px;
         border:1px solid rgba(42,130,228,1);
