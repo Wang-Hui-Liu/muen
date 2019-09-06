@@ -19,6 +19,7 @@
                        <p class="price">${{item.price}}</p>
                    </div>
                    <div class="btns">
+                   //如果item.count大于1时，count值不再改变，设置下限；将index与改变后的count值传给store
                        <span @click="item.count>1?changeCount({index,count:item.count-1}):''">-</span>
                        <span>{{item.count}}</span>
                        <span @click="changeCount({index,count:item.count+1})">+</span>
@@ -49,12 +50,12 @@ export default {
     },
     computed:{
         ...mapState(['list']),
-        Allprice(){
+        Allprice(){//计算总的价钱  ，reduce第一个参数是前一个计算的值，next为当前的计算的值
            return this.list.reduce((prev,next)=>{
                 return prev+next.count*next.price
             },0)
         },
-        Allcount(){
+        Allcount(){//计算总的件数，reduce第一个参数是前一个计算的值，next为当前的计算的值
             return this.list.reduce((prev,next)=>{
                 return prev+next.count
             },0)
