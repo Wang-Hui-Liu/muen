@@ -36,6 +36,8 @@ export default {
             const res=await login({userName:this.user,password:this.pwd})
             // console.log(res)
                 if(res.code===1){//判断成功
+                              window.localStorage.setItem("userId",res.userId)
+
                     window.localStorage.setItem('token',res.token);// 本地存储
                     let redirect=this.$route.query.redirect;
                     // console.log(redirect)

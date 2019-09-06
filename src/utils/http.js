@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Message} from "element-ui"
+// import {Message} from "element-ui"
 
 const httpAxios=axios.create({
     timeout:2000
