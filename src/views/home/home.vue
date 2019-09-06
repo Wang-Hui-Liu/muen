@@ -52,7 +52,8 @@ export default {
           },
           {
             name:"小礼品",
-            icon:"icon-xinshuai"
+            icon:"icon-xinshuai",
+            path:"/gift"
           },
           {
             name:"留言",
@@ -69,7 +70,8 @@ export default {
           },
           {
             name:"小组",
-            icon:"icon-xiaozurenwu"
+            icon:"icon-xiaozurenwu",
+            path:"/group"
           }
         ]
       }

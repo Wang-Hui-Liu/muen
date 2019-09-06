@@ -29,6 +29,9 @@ header{
     padding: 0 10px;
     border-bottom: 1px solid #ccc;
     background: #fff;
+    span{
+        font-size: 35px;
+    }
 }
 .title{
     flex:1;
@@ -37,7 +40,6 @@ header{
     p{
         flex:1;
         font-size: 15px;
-
     }
     .v{
          padding-left: 44px;

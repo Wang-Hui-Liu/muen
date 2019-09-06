@@ -63,8 +63,6 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: rgba(243, 243, 247, 1);
-    overflow: hidden;
 }
 .title{
     margin-top:124px;

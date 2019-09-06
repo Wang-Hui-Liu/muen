@@ -34,6 +34,26 @@ const router=new Router({
       component:()=>import ("./views/newvote/newvote.vue")
     },
     {
+      path:"/group",
+      name:"group",
+      component:()=>import ("./views/group/group.vue")
+    },
+    {
+      path:"/gift",
+      name:"gift",
+      component:()=>import ("./views/gift/gift.vue")
+    },
+    {
+      path:"/giftDetail",
+      name:"giftDetail",
+      component:()=>import ("./views/gift/giftDetail.vue")
+    },
+    {
+      path:"/shop",
+      name:"shop",
+      component:()=>import ("./views/shop/shop.vue")
+    },
+    {
       path:"/",
       redirect:"/home"
     }

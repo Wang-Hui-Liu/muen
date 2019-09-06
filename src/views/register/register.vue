@@ -63,7 +63,6 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: rgba(243, 243, 247, 1);
 }
 .title{
     height: 30px;
